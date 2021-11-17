@@ -53,6 +53,7 @@ public class FieldOfView : MonoBehaviour {
 				if (!Physics.Raycast (transform.position, dirToTarget, dstToTarget, obstacleMask)) {
 					visibleTargets.Add (target);
 				}
+				Debug.Log("Count : " + visibleTargets.Count);
 			}
 		}
 	}
@@ -65,7 +66,7 @@ public class FieldOfView : MonoBehaviour {
 		for (int i = 0; i <= stepCount; i++) {
 			float angle = transform.eulerAngles.y - viewAngle / 2 + stepAngleSize * i;
 			ViewCastInfo newViewCast = ViewCast (angle);
-
+			/*
 			if (i > 0) {
 				bool edgeDstThresholdExceeded = Mathf.Abs (oldViewCast.dst - newViewCast.dst) > edgeDstThreshold;
 				if (oldViewCast.hit != newViewCast.hit || (oldViewCast.hit && newViewCast.hit && edgeDstThresholdExceeded)) {
@@ -79,7 +80,7 @@ public class FieldOfView : MonoBehaviour {
 				}
 
 			}
-
+			*/
 
 			viewPoints.Add (newViewCast.point);
 			oldViewCast = newViewCast;
@@ -134,11 +135,11 @@ public class FieldOfView : MonoBehaviour {
 
 	ViewCastInfo ViewCast(float globalAngle) {
 		Vector3 dir = DirFromAngle (globalAngle, true);
-		RaycastHit hit;
+		/*RaycastHit hit;
 
 		if (Physics.Raycast (transform.position, dir, out hit, viewRadius, obstacleMask)) {
 			return new ViewCastInfo (true, hit.point, hit.distance, globalAngle);
-		} else {
+		} else*/ {
 			return new ViewCastInfo (false, transform.position + dir * viewRadius, viewRadius, globalAngle);
 		}
 	}
